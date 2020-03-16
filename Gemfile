@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'jquery-rails'
 gem 'stock_quote', '~> 3.0'
+gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 group :development, :test do
