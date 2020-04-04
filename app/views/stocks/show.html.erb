@@ -1,6 +1,7 @@
 
 <% @ticker = StockQuote::Stock.quote(@stock.ticker) %>
 
+
 <table class="table table-striped table-bordered table-hover">
 	 <% if !@ticker %>
 
@@ -13,6 +14,9 @@
 	        <tr>
 	          	<th>Ticker Symbol: <%= @ticker.symbol %></th>
 	        </tr><br/>
+
+	  
+
 	        <tr>
 	         	<th>Current Price: $<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %></th>                		
 	        </tr><br/>
