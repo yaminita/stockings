@@ -1,19 +1,40 @@
 
 <% @ticker = StockQuote::Stock.quote(@stock.ticker) %>
 
-            <% if !@ticker %>
+<table class="table table-striped table-bordered table-hover">
+	 <% if !@ticker %>
 
-                The ticker: <%= @stock.ticker %><br/> does not exist!
-        
-              <%else %>
-                <strong><%= @ticker.company_name %></strong><br/>
-                Ticker Symbol: <%= @ticker.symbol %><br/>
-                Current Price: $<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %><br/>
-                Previous Close: $<%= number_with_precision(@ticker.previous_close, :precision => 2, :delimiter => ',') %><br/>
-                Percentage Change: <%= @ticker.change_percent %>%<br/>              
-                Market Cap: $<%= number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ',') %><br/>
-                
-            <% end %>
+	    The ticker: <%= @stock.ticker %><br/> does not exist!
+	     <%else %>
+	    	<tr>
+	      		<th><strong><%= @ticker.company_name %></strong></th>
+	      	</tr><br/>
+
+	        <tr>
+	          	<th>Ticker Symbol: <%= @ticker.symbol %></th>
+	        </tr><br/>
+	        <tr>
+	         	<th>Current Price: $<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %></th>                		
+	        </tr><br/>
+	        <tr>
+	           	<th>Previous Close: $<%= number_with_precision(@ticker.previous_close, :precision => 2, :delimiter => ',') %></th>
+	        </tr><br/>
+	        <tr>
+	           	<th>Percentage Change: <%= @ticker.change_percent %>%</th>
+	        </tr><br/>  
+	        <tr>
+	        	<th>YTD Change: $<%= number_with_precision(@ticker.ytd_change, :precision => 2, :delimiter => ',') %></th>
+	        </tr><br/>             
+	        </tr>
+	            <th>Market Cap: $<%= number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ',') %></th>
+	        </tr><br/>
+
+	          
+	                
+	<% end %>
+
+
+ </table>
 
 
 
