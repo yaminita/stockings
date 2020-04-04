@@ -16,35 +16,40 @@
     <% @stocks.each do |stock| %>
       <% if stock.user_id == current_user.id %>
 
-        <% if stock.ticker =="" %>
-          <% @ticker.company_name = "N/A" %>
-          <% @ticker.symbol = "N/A" %>
-          <% @ticker.latest_price = "N/A" %>
-
-        <% elsif stock.ticker %>
           <% @ticker = StockQuote::Stock.quote(stock.ticker) %>
+            <% if !@ticker %>
+                           <tr>
+                <td><%= link_to "Error", stock %></td>
+                <td><%= @stock.ticker %></td>
+                <td>N/A</td>
+                <td>N/A</td>
+                <td><center><%= link_to 'Edit', edit_stock_path(stock) %></center></td>
+                <td><center><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></center></td>
+              </tr>
 
-          <% if !stock.ticker %>
-            <% @ticker.company_name = "N/A" %>
-            <% @ticker.symbol = "N/A" %>
-            <% @ticker.latest_price = "N/A" %>
+
+            <%else %>
+              <tr>
+                <td><%= link_to @ticker.company_name, stock %></td>
+                <td><%= @ticker.symbol %></td>
+                <td>$<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %></td>
+                <td>$<%= number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ',') %></td>
+                <td><center><%= link_to 'Edit', edit_stock_path(stock) %></center></td>
+                <td><center><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></center></td>
+
+              </tr>
+            <% end %>
+
+
+
+
           <% end %>
-
-        <% end %>
-
-        <tr>
-          <td><%= link_to @ticker.company_name, stock %></td>
-          <td><%= @ticker.symbol %></td>
-          <td>$<%= number_with_precision(@ticker.latest_price, :precision => 2, :delimiter => ',') %></td>
-          <td>$<%= number_with_precision(@ticker.market_cap, :precision => 2, :delimiter => ',') %></td>
-          <td><center><%= link_to 'Edit', edit_stock_path(stock) %></center></td>
-          <td><center><%= link_to 'Destroy', stock, method: :delete, data: { confirm: 'Are you sure?' } %></center></td>
-        </tr>
       <% end %>
-    <% end %>
   </tbody>
 </table>
 
 <br>
 
 <%= link_to 'New Stock', new_stock_path %>
+
+
